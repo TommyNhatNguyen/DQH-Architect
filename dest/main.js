@@ -204,7 +204,7 @@ function handleBtnControlsPadding() {
 handleBtnControlsPadding();
 
 // TODO8: Validate advise
-function handleFormAdvise() {
+function handleFormAdvise(submitSucess) {
   function validatePhoneNumber(phoneNum) {
     return phoneNum.match(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/);
   }
@@ -247,6 +247,7 @@ function handleFormAdvise() {
         }
       }
     }
+    submitSucess();
   });
 
   inputList.forEach((input) =>
@@ -255,7 +256,20 @@ function handleFormAdvise() {
     })
   );
 }
-handleFormAdvise();
+function submitSucess() {
+  const adviseFormGroups = document?.querySelectorAll(".scadvise .scadvise__inner .scadvise__form .scadvise__form-wrapper .formgroup");
+  let errorCount = 0;
+  adviseFormGroups.forEach((group) => {
+    if (group.classList.contains("--error")) {
+      errorCount += 1;
+    }
+  });
+  if (errorCount === 0) {
+    alert("Thank you! We will contact you soon!");
+    errorCount = 0;
+  }
+}
+handleFormAdvise(submitSucess);
 
 // TODO9: Handle Navbar
 function disableScroll() {
